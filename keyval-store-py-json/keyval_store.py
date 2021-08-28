@@ -11,20 +11,17 @@ class KeyValueStore(object):
 
         try:    
             self.keyvalue_pairs = self.get_key_values(store_path)
-        except:
+        except Exception as e:
+            print(f"Set to {{}} because of following error >>> {e.__class__.__name__}: {e}")
             self.keyvalue_pairs = {}
 
     def get_key_values(self, json_filepath: str) -> Dict:
-        if not os.path.exists(json_filepath):
-            return {}
-
         with open(json_filepath, 'r') as f:
             data = json.load(f)
-        
-        if data: 
-            return data
-        else:
-            return {}
+
+        return data
+
+
 
     def get_value(self, key: str) -> str:
         ret_val = None
