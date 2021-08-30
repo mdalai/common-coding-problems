@@ -1,7 +1,10 @@
 import json
 import os
-
 from typing import Dict
+import logging
+
+
+logging.basicConfig(filename=f'{__name__}.log', format='%(asctime)s %(levelname)s: %(message)s', level=logging.DEBUG)
 
 
 class KeyValueStore(object):
@@ -13,6 +16,7 @@ class KeyValueStore(object):
             self.keyvalue_pairs = self.get_key_values(store_path)
         except Exception as e:
             print(f"Set to {{}} because of following error >>> {e.__class__.__name__}: {e}")
+            logging.error(f"Throws Exception >>> {e.__class__.__name__}: {e}")
             self.keyvalue_pairs = {}
 
     def get_key_values(self, json_filepath: str) -> Dict:
